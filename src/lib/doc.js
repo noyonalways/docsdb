@@ -2,6 +2,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 import { remark } from "remark";
+import remarkGfm from "remark-gfm";
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "src/docs");
@@ -38,17 +39,18 @@ export async function getDocumentContent(id) {
     throw new Error(`Document with id ${id} does not exist`);
   }
 
-  const fileContents = fs?.readFileSync(fullPath, "utf8");
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   const matterResult = matter(fileContents);
+
   const processedContent = await remark()
+    .use(remarkGfm) // ← ENABLE TABLES + EXTRA MARKDOWN FEATURES
     .use(html)
     .process(matterResult.content);
-  const contentHtml = processedContent.toString();
 
   return {
     id,
-    contentHtml,
+    contentHtml: processedContent.toString(),
     ...matterResult.data,
   };
 }

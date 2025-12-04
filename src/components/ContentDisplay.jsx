@@ -17,7 +17,7 @@ const ContentDisplay = async ({ id }) => {
   });
 
   return (
-    <article className="prose dark:prose-invert prose-a:text-emerald-600 prose-a:no-underline prose-a:hover:underline">
+    <article className="prose dark:prose-invert prose-a:text-emerald-600 prose-a:no-underline prose-a:hover:underline w-full lg:max-w-2xl">
       <h1>{documentContent.title}</h1>
       <div>
         <span>Published On: {documentContent.date}</span> by{" "}
@@ -34,7 +34,7 @@ const ContentDisplay = async ({ id }) => {
         {documentContent.tags &&
           documentContent.tags.map((tag) => <Tag key={tag} tag={tag} />)}
       </div>
-      <div>{transformedContent}</div>
+      <div className="prose-img:rounded">{transformedContent}</div>
     </article>
   );
 };
