@@ -20,7 +20,7 @@ const Landing = () => {
 
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
-                  href="/docs/introduction"
+                  href="/docs/postman/postman"
                   className="inline-flex justify-center rounded-lg bg-slate-900 dark:bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-500"
                 >
                   <span>Get Started</span>

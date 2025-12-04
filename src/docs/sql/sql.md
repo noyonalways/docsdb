@@ -2,7 +2,7 @@
 title: "Learn SQL"
 date: "2025-12-04"
 parent: null
-order: 1
+order: 2
 author: Noyon Rahman
 category: sql
 tags: ["sql", "learn-sql"]

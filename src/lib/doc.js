@@ -1,9 +1,12 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
+import rehypeRaw from "rehype-raw";
+import rehypeStringify from "rehype-stringify";
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import html from "remark-html";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
 
 const postsDirectory = path.join(process.cwd(), "src/docs");
 
@@ -67,7 +70,7 @@ export function getDocuments() {
 export async function getDocumentContent(id) {
   let fullPath = path.join(postsDirectory, `${id}.md`);
 
-  // Fallback: if not found, try flat structure (for backward compatibility or mixed mode)
+  // Fallback: attempt flat structure
   if (!fs.existsSync(fullPath)) {
     const flatName = id.split("/").pop();
     const flatPath = path.join(postsDirectory, `${flatName}.md`);
@@ -78,11 +81,17 @@ export async function getDocumentContent(id) {
     }
   }
 
+  // Read markdown file
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const matterResult = matter(fileContents);
+
+  // Convert markdown → HTML
   const processedContent = await remark()
-    .use(remarkGfm) // ← ENABLE TABLES + EXTRA MARKDOWN FEATURES
-    .use(html)
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true }) // allow raw HTML
+    .use(rehypeRaw) // process raw HTML
+    .use(rehypeStringify)
     .process(matterResult.content);
 
   return {
