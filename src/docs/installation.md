@@ -13,7 +13,7 @@ tags: ["getting-started", "installation"]
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/your-org/docucraft.git
+   git clone https://github.com/noyonalways/docucraft.git
    cd docucraft
    ```
 
