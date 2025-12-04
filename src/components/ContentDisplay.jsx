@@ -1,9 +1,21 @@
 import { getDocumentContent } from "@/lib/doc";
+import parse from "html-react-parser";
 import Link from "next/link";
 import Tag from "./Tag";
 
 const ContentDisplay = async ({ id }) => {
   const documentContent = await getDocumentContent(id);
+
+  const transformedContent = parse(documentContent.contentHtml, {
+    replace: (domNode) => {
+      if (domNode.name === "a") {
+        const href = domNode.attribs.href;
+        const children = domNode.children.map((child) => child.data || "");
+        return <Link href={href}>{children}</Link>;
+      }
+    },
+  });
+
   return (
     <article className="prose dark:prose-invert prose-a:text-emerald-600 prose-a:no-underline prose-a:hover:underline">
       <h1>{documentContent.title}</h1>
@@ -22,10 +34,7 @@ const ContentDisplay = async ({ id }) => {
         {documentContent.tags &&
           documentContent.tags.map((tag) => <Tag key={tag} tag={tag} />)}
       </div>
-      <div
-        className="lead"
-        dangerouslySetInnerHTML={{ __html: documentContent.contentHtml }}
-      />
+      <div>{transformedContent}</div>
     </article>
   );
 };

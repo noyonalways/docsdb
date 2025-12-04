@@ -7,7 +7,7 @@ const CategoriesPage = async ({ params }) => {
   const { name } = resolvedParams;
   const docs = getDocuments();
   const matchedDocs = getDocumentsByCategory(docs, name);
-  return <ContentDisplay id={matchedDocs[0].id} />;
+  return <ContentDisplay id={matchedDocs[0]?.id} />;
 };
 
 export default CategoriesPage;

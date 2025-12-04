@@ -12,7 +12,7 @@ export function getDocuments() {
   const allDocuments = fileNames.map((fileName) => {
     const id = fileName.replace(".md", "");
     const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const fileContents = fs?.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
 
     return {
@@ -34,7 +34,11 @@ export function getDocuments() {
 
 export async function getDocumentContent(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Document with id ${id} does not exist`);
+  }
+
+  const fileContents = fs?.readFileSync(fullPath, "utf8");
 
   const matterResult = matter(fileContents);
   const processedContent = await remark()
