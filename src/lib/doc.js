@@ -31,7 +31,18 @@ export function getDocuments() {
 
   const allDocuments = allFiles.map((fullPath) => {
     const relativePath = path.relative(postsDirectory, fullPath);
-    const id = relativePath.replace(/\.md$/, "").replace(/\\/g, "/");
+    let id = relativePath.replace(/\.md$/, "").replace(/\\/g, "/");
+
+    // Handle "folder/folder" pattern -> "folder"
+    const parts = id.split("/");
+    if (
+      parts.length > 1 &&
+      parts[parts.length - 1] === parts[parts.length - 2]
+    ) {
+      parts.pop();
+      id = parts.join("/");
+    }
+
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const matterResult = matter(fileContents);
 
@@ -46,13 +57,33 @@ export function getDocuments() {
       if (parts.length > 1) {
         const dir = parts.slice(0, -1).join("/");
         parent = `${dir}/${parent}`;
+
+        // Normalize parent ID if it matches folder/folder pattern
+        const pParts = parent.split("/");
+        if (
+          pParts.length > 1 &&
+          pParts[pParts.length - 1] === pParts[pParts.length - 2]
+        ) {
+          pParts.pop();
+          parent = pParts.join("/");
+        }
       }
     }
+
+    const isRoot = !id.includes("/") && (parent === null || parent === undefined);
+    const folderLabel = isRoot
+      ? id
+          .split("/")
+          .pop()
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase())
+      : undefined;
 
     return {
       id,
       ...matterResult.data,
       parent,
+      folderLabel,
     };
   });
 
@@ -70,7 +101,19 @@ export function getDocuments() {
 export async function getDocumentContent(id) {
   let fullPath = path.join(postsDirectory, `${id}.md`);
 
-  // Fallback: attempt flat structure
+  // Fallback 1: Check for folder/folder.md pattern (e.g. nextjs -> nextjs/nextjs.md)
+  if (!fs.existsSync(fullPath)) {
+    const folderDocPath = path.join(
+      postsDirectory,
+      id,
+      `${path.basename(id)}.md`
+    );
+    if (fs.existsSync(folderDocPath)) {
+      fullPath = folderDocPath;
+    }
+  }
+
+  // Fallback 2: attempt flat structure
   if (!fs.existsSync(fullPath)) {
     const flatName = id.split("/").pop();
     const flatPath = path.join(postsDirectory, `${flatName}.md`);

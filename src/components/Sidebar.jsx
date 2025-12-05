@@ -21,6 +21,7 @@ const SidebarItem = ({
   const hasChildren = node.children && node.children.length > 0;
   const isExpanded = expanded[node.id];
   const isActive = pathname === `/docs/${node.id}`;
+  const isGroupActive = pathname.startsWith(`/docs/${node.id}`);
 
   // Child nodes appear less white in dark mode and less black in light mode
   const textColor =
@@ -28,14 +29,18 @@ const SidebarItem = ({
       ? "text-zinc-900 dark:text-white"
       : "text-zinc-700 dark:text-zinc-300";
 
+  const displayTitle = level === 0 ? node.folderLabel ?? node.title : node.title;
+
   return (
     <li key={node.id} className="relative">
       <div className="flex items-center justify-between pr-3">
         {node.isVirtual ? (
           <span
-            className={`flex justify-between gap-2 py-1 pl-4 pr-3 text-sm font-semibold ${textColor}`}
+            className={`flex justify-between gap-2 py-1 pl-4 pr-3 text-sm font-semibold ${textColor} ${
+              level === 0 && isGroupActive ? "border-l border-emerald-500" : ""
+            }`}
           >
-            <span className="truncate">{node.title}</span>
+            <span className="truncate">{displayTitle}</span>
           </span>
         ) : (
           <Link
@@ -43,12 +48,14 @@ const SidebarItem = ({
             className={`flex justify-between gap-2 py-1 pl-4 pr-3 text-sm transition w-full ${
               isActive
                 ? "border-l border-emerald-500 text-emerald-500"
+                : level === 0 && isGroupActive
+                ? `border-l border-emerald-500 ${textColor}`
                 : textColor
-            }`}
+            } ${level === 0 ? "font-semibold" : ""}`}
             href={`/docs/${node.id}`}
             onClick={onLinkClick}
           >
-            <span className="truncate">{node.title}</span>
+            <span className="truncate">{displayTitle}</span>
           </Link>
         )}
 
