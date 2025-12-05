@@ -19,11 +19,16 @@ const Header = ({ docs }) => {
           isDesktopSidebarOpen ? "lg:block" : "lg:hidden"
         }`}
       >
-        <div className="hidden lg:block">
+        <div className="hidden lg:block fixed">
           <Logo />
         </div>
         <div className="hidden lg:block">
           <Sidebar docs={docs} />
+        </div>
+        <div className="fixed bottom-4 left-6">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            &copy; {new Date().getFullYear()} DocsDB. All rights reserved.
+          </p>
         </div>
       </header>
 

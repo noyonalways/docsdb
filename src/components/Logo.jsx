@@ -4,25 +4,16 @@ import Link from "next/link";
 const Logo = () => {
   return (
     <div className="lg:flex">
-      <Link href="/">
+      <Link className="flex" href="/">
         <Image
-          className="h-6 w-auto dark:hidden block"
+          className="h-6 w-auto"
           src="/logo.svg"
           alt="Logo"
           width={100}
           height={24}
           priority
         />
-      </Link>
-      <Link href="/">
-        <Image
-          className="h-6 w-auto hidden dark:block"
-          src="/logo-dark.svg"
-          alt="Logo"
-          width={100}
-          height={24}
-          priority
-        />
+        <span className="font-bold text-zinc-900 dark:text-white">DocsDB</span>
       </Link>
     </div>
   );

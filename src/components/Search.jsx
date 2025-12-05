@@ -1,8 +1,8 @@
 "use client";
 
 import { useDebounce } from "@/hooks/useDebounce";
+import { SearchIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SearchResult from "./SearchResult";
@@ -38,23 +38,7 @@ const Search = ({ docs }) => {
           type="button"
           className="focus:[&amp;:not(:focus-visible)]:outline-none hidden h-8 w-full items-center gap-2 rounded-full bg-white pl-2 pr-3 text-sm text-zinc-500 ring-1 ring-zinc-900/10 transition hover:ring-zinc-900/20 dark:bg-white/5 dark:text-zinc-400 dark:ring-inset dark:ring-white/10 dark:hover:ring-white/20 lg:flex"
         >
-          {theme === "dark" ? (
-            <Image
-              src="/search-dark.svg"
-              alt="Search"
-              className="h-5 w-5"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <Image
-              src="/search.svg"
-              alt="Search"
-              className="h-5 w-5"
-              width={50}
-              height={50}
-            />
-          )}
+          <SearchIcon className="h-4 w-4" />
           <input
             type="text"
             value={term}

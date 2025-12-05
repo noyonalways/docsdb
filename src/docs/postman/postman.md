@@ -2,7 +2,7 @@
 title: "Postman Pro Workshop"
 date: "2025-12-04"
 parent: null
-order: 1
+order: 3
 author: Noyon Rahman
 category: postman
 tags: ["postman", "postman-intro"]

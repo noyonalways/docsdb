@@ -1,6 +1,6 @@
 ---
 title: "Basics of Next.js"
-date: "2025-12-04"
+date: "2025-12-05"
 parent: nextjs
 order: 1
 author: Noyon Rahman

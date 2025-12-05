@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "DocuCraft - A documentation website by protocol",
-  description: "A documentation website by protocol",
+  title: "DocsDB - A documentation website",
+  description: "A documentation website for DocsDB",
 };
 
 export default function RootLayout({ children }) {

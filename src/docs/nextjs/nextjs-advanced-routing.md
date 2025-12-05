@@ -1,6 +1,6 @@
 ---
 title: "Next.js Advanced Routing"
-date: "2025-12-04"
+date: "2025-12-05"
 parent: "advanced-nextjs"
 order: 1
 author: Noyon Rahman

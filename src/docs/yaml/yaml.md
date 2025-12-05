@@ -2,7 +2,7 @@
 title: "YAML - Ain’t Markup Language"
 date: "2025-12-04"
 parent: null
-order: 3
+order: 5
 author: Noyon Rahman
 category: yaml
 tags: ["yaml", "getting-started"]

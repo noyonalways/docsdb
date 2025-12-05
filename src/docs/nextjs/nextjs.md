@@ -1,8 +1,8 @@
 ---
 title: "Next.js Introduction"
-date: "2025-12-04"
+date: "2025-12-05"
 parent: null
-order: 1
+order: 2
 author: Noyon Rahman
 category: nextjs
 tags: ["nextjs", "nextjs-intro"]
