@@ -5,10 +5,16 @@ import { getDocumentContent } from "@/lib/doc";
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const { contentId } = resolvedParams;
-  const documentContent = await getDocumentContent(contentId);
-  return {
-    title: documentContent.title,
-  };
+  try {
+    const documentContent = await getDocumentContent(contentId);
+    return {
+      title: documentContent.title,
+    };
+  } catch (error) {
+    return {
+      title: "Document Not Found",
+    };
+  }
 }
 
 const ContentPage = async ({ params }) => {

@@ -70,7 +70,8 @@ export function getDocuments() {
       }
     }
 
-    const isRoot = !id.includes("/") && (parent === null || parent === undefined);
+    const isRoot =
+      !id.includes("/") && (parent === null || parent === undefined);
     const folderLabel = isRoot
       ? id
           .split("/")
@@ -120,7 +121,9 @@ export async function getDocumentContent(id) {
     if (fs.existsSync(flatPath)) {
       fullPath = flatPath;
     } else {
-      throw new Error(`Document with id ${id} does not exist`);
+      const err = new Error(`Document with id ${id} does not exist`);
+      err.status = 404;
+      throw err;
     }
   }
 

@@ -6,10 +6,16 @@ export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const { contentId, subContentId } = resolvedParams;
   const id = `${contentId}/${subContentId}`;
-  const documentContent = await getDocumentContent(id);
-  return {
-    title: documentContent.title,
-  };
+  try {
+    const documentContent = await getDocumentContent(id);
+    return {
+      title: documentContent.title,
+    };
+  } catch (error) {
+    return {
+      title: "Document Not Found",
+    };
+  }
 }
 
 const SubContentPage = async ({ params }) => {
