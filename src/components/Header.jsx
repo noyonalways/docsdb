@@ -19,14 +19,14 @@ const Header = ({ docs }) => {
           isDesktopSidebarOpen ? "lg:block" : "lg:hidden"
         }`}
       >
-        <div className="hidden lg:block fixed">
+        <div className="hidden lg:block sticky top-0 bg-white">
           <Logo />
         </div>
         <div className="hidden lg:block">
           <Sidebar docs={docs} />
         </div>
-        <div className="fixed bottom-4 left-6">
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        <div className="fixed bottom-0 text-center lg:left-6 bg-white  z-20 py-2 w-full md:w-auto">
+          <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">
             &copy; {new Date().getFullYear()} DocsDB. All rights reserved.
           </p>
         </div>
@@ -37,7 +37,7 @@ const Header = ({ docs }) => {
           isDesktopSidebarOpen ? "lg:left-72 xl:left-80" : "lg:left-0"
         }`}
       >
-        <div className="container flex h-14 items-center justify-between gap-12">
+        <div className=" flex h-14 items-center justify-between gap-12">
           <div className="absolute inset-x-0 top-full h-px bg-zinc-900/7.5 transition dark:bg-white/7.5"></div>
 
           <div className="flex items-center gap-4">

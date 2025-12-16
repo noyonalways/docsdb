@@ -21,3 +21,7 @@
     --foreground: #ededed;
   }
 }
+
+* {
+  scrollbar-width: thin;
+}
